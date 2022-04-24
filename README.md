@@ -322,9 +322,18 @@ Antes de continuar puede eliminar el grupo de recursos anterior para evitar gast
 
 ![](images/part2/part2-lb-create.png)
 
+#### Creación del balanceador de carga
+
+![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/CrearEquilibrador.png)
+
+![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/ipFrontEnd.png)
+
 2. A continuación cree un *Backend Pool*, guiese con la siguiente imágen.
 
 ![](images/part2/part2-lb-bp-create.png)
+
+#### Configuración POOL de Backend
+![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/GrupoBackEnd.png)
 
 3. A continuación cree un *Health Probe*, guiese con la siguiente imágen.
 
@@ -334,9 +343,19 @@ Antes de continuar puede eliminar el grupo de recursos anterior para evitar gast
 
 ![](images/part2/part2-lb-lbr-create.png)
 
+#### Implementación de regla de equilibrio de carga
+
+![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/ReglaEquilibrio.png)
+
 5. Cree una *Virtual Network* dentro del grupo de recursos, guiese con la siguiente imágen.
 
 ![](images/part2/part2-vn-create.png)
+
+
+#### Creación de red virtual 
+
+![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/Red1.png)
+
 
 #### Crear las maquinas virtuales (Nodos)
 
@@ -358,6 +377,16 @@ Ahora vamos a crear 3 VMs (VM1, VM2 y VM3) con direcciones IP públicas standar 
 
 ![](images/part2/part2-vm-create4.png)
 
+
+#### CREACION DE MAQUINAS VIRTUALES
+   - MAQUINA 1 
+   
+   ![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/VM1.png)
+   
+   - MAQUINA 3 
+
+   ![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/VM3.png)
+
 5. Finalmente debemos instalar la aplicación de Fibonacci en la VM. para ello puede ejecutar el conjunto de los siguientes comandos, cambiando el nombre de la VM por el correcto
 
 ```
@@ -373,6 +402,16 @@ npm install
 npm install forever -g
 forever start FibonacciApp.js
 ```
+
+#### BASH DE PRIMERA MAQUINA
+![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/Bash1.png)
+
+
+#### BASH DE SEGUNDA MAQUINA
+![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/Bash2.png)
+
+#### BASH DE TERCERA MAQUINA
+![Imágen 1](https://github.com/DiegoGonzalez2807/ARSW-LAB9/blob/main/images/Solution-Part2/Bash3.png)
 
 Realice este proceso para las 3 VMs, por ahora lo haremos a mano una por una, sin embargo es importante que usted sepa que existen herramientas para aumatizar este proceso, entre ellas encontramos Azure Resource Manager, OsDisk Images, Terraform con Vagrant y Paker, Puppet, Ansible entre otras.
 
@@ -398,15 +437,55 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 
 **Preguntas**
 
-* ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
-* ¿Cuál es el propósito del *Backend Pool*?
-* ¿Cuál es el propósito del *Health Probe*?
-* ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
-* ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
-* ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
-* ¿Cuál es el propósito del *Network Security Group*?
-* Informe de newman 1 (Punto 2)
-* Presente el Diagrama de Despliegue de la solución.
+### ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?
+   #### Balanceador de carga interno( Privado ): Este balanceador de carga se encarga de equilibrar la carga de trafico de una red privada 
+
+   #### Balanceador de carga publico: Este balanceador de carga se encarga de equilibrar la carga de trafico de redes publicas, especificamente de la carga       proveniente de internet.
+
+   #### Balanceador de carga de puerta de enlace: Es un balanceador que se adapta a escenarios de alto rendimiento y alta disponibilidad con dispositivos virtuales de red (NVA) de terceros. Con las capacidades de Gateway Load Balancer, puede implementar, escalar y administrar NVA fácilmente.
+
+### ¿Qué es SKU?
+
+Representa una unidad de mantenimiento de existencias, lo cual significa que es un codigo unico asignado a un servicio o producto de Azure, el cual nos permite a nosotros como usuarios la posibilidad de comprar existencias de los mismos.
+
+###  qué tipos hay y en qué se diferencian?
+ - Estándar: Productos estandar los cuales se pueden vender de manera individual o en paquetes,
+ - Ensamblaje: Aquellos productos que se deben ensamblar antes de un envio, todos los SKU deberan encontrarse dentro de una misma instalacion.
+ - Virtual: No necesitan de una instalacion fisica evitando asi un nivel de inventario
+ - Componente: Productos incluidos en paquetes, esamblajes y colecciones
+
+### ¿Cuál es el propósito del *Backend Pool*?
+El almacenamiento las direcciones IP de las máquinas virtuales conectadas al balanceador de carga, ademas de esto, el componente define el grupo de recursos que brindarán tráfico para una Load Balancing Rule determinada.
+
+### ¿Cuál es el propósito del *Health Probe*?
+Supervisión de el estado de la aplicación, este se utiliza para detectar fallos de una aplicación en un endpoint del backend; Las respuestas de Health Probe determinan qué instancias del backend pool recibirán nuevos flujos.
+
+### ¿Cuál es el propósito de la *Load Balancing Rule*? 
+El proposito del Load Balancing Rule es definir como se debera distribuir el trafico de las maquinas virtuales dentro del pool de backend.
+
+### ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
+ - Ninguno(hash-based): Peticiones recurrentes de un mismo cliente podrían ser atendidas por máquinas diferentes del backend
+ - IP del cliente: : Todas las peticiones que procedan de una misma IP de origen serás atendidas por la misma máquina del backend.
+ - IP y protocolo del cliente: Todas las peticiones que procedan de una misma IP y puerto de origen serán atendidas por la misma máquina del backend, pero si vienen de la misma IP pero con un puerto de origen diferente podrían ser atendidas por otra máquina del backend.
+
+### ¿Qué es una *Virtual Network*? 
+ red que permite la interconexión de dispositivos y máquinas virtuales mediante software, independientemente de un ubicación fisica.
+
+### ¿Qué es una *Subnet*? 
+Segmentación de una red fisica o red virtual, estas segmentaciones contarán con su propio rango de direcciones ip según como se realice la partición de la dirección ip original
+
+### ¿Para qué sirven los *address space* y *address range*?+
+ - Address space: Cuando se crea una red virtual, se debe de especificar un rango de direcciones ip las cuales no se superponen unas con otras
+ - Address range: Determina el numero de direcciones que se tienen o se pueden tener en un address space y dependiendo de la cantidad de recursos que se necesiten en la red virtual
+
+
+### ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
+ - Una availability zone, son zonas que buscan garantizar una alta disponibilidad replicando sus aplicaciones y datos con el fin de protegerlos de puntos de fallo, estas zonas se encuentran dentro de una region. Se selecciona 3 zonas de disponibilidad para garantizar una mejor disponibilidad y tolarancia a fallos dentro del sistema.
+ - Una ip zone-redundant azure separa física y lógicamente el gateway dentro de una region, lo cual permite mejorar la conectividad de la red privada y disminuye fallos a nivel de zona de disponibilidad
+ 
+### ¿Cuál es el propósito del *Network Security Group*?
+ lograr filtrar el trafico desde y hacia los recursos de una red virtual de Azure
+
 
 
 
